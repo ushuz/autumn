@@ -394,7 +394,7 @@ class Model(object):
     def _set_default_values(self):
         """Set attributes to their default values if not been set."""
         for k, v in self.__class__.__dict__.iteritems():
-            # If model property name is
+            # If model property name is not a field, then continue
             if k not in self._fields:
                 continue
             if getattr(self, k, None) is None:
