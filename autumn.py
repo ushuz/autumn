@@ -139,12 +139,12 @@ class Query(object):
 
     @classmethod
     def execute(cls, db, query, values=()):
-        print("SQL:", query, values)
         cursor = db.cursor()
         try:
             cursor.execute(query, values)
             db.commit()
         except Exception as e:
+            print("SQL:", query, values)
             print(e)
             db.rollback()
             raise
