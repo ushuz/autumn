@@ -1,19 +1,18 @@
 # coding: utf-8
 
-from __future__ import print_function
-
 """
 autumn.py
 
 A simple MySQL ORM, provides basic ORM functionalities in a Pythonic way.
 """
 
+from __future__ import print_function
+
+import datetime
+
 
 __version__ = "0.1.0"
 __author__ = "ushuz"
-
-
-import datetime
 
 
 class Query(object):
@@ -73,9 +72,9 @@ class Query(object):
         >>> Query(model=User).where(name="John").count("distinct(name)")
         1
 
-    If the results have not been fetched yet, `count()` will execute a SQL query
-    `SELECT COUNT(0)`. Otherwise, it will return the length of results using
-    `len()`.
+    If the results have not been fetched yet, `count()` will execute a SQL
+    query `SELECT COUNT(0)`. Otherwise, it will return the length of results
+    using `len()`.
 
     Execute raw SQL
 
@@ -103,11 +102,12 @@ class Query(object):
             return self._cache[key]
 
         if isinstance(key, (int, long)):
-            # If key < 0, Query should return a result from bottom. For instance,
-            # -1 for the last result, -3 for the third result from bottom. Generally,
-            # it's done by ORDER BY and LIMIT. But Query has no idea about any fields
-            # it can apply ORDER BY to, so it just count the number of the matching
-            # rows, then fetch the result from top to bottom.
+            # If key < 0, Query should return a result from bottom. For
+            # instance, -1 for the last result, -3 for the third result from
+            # bottom. Generally, it's done by ORDER BY and LIMIT. But Query has
+            # no idea about any fields it can apply ORDER BY to, so it just
+            # count the number of the matching rows, then fetch the result from
+            # top to bottom.
             if key < 0:
                 key += self.count()
             self._limit = (key, 1)
@@ -163,8 +163,8 @@ class Query(object):
             self._model.table_name,
             self._where_condition,
             self._order_by,
-            "LIMIT {}".format(", ".join(str(x) for x in self._limit)) \
-                if self._limit else "")
+            "LIMIT {}".format(
+                ", ".join(str(x) for x in self._limit)) if self._limit else "")
 
     @property
     def _results(self):
@@ -235,7 +235,8 @@ class ModelMetaclass(type):
     """
     Metaclass for Model.
 
-    Setup meta for the model, like fields, default table name and primary key, etc.
+    Setup meta for the model, like fields, default table name and primary key,
+    etc.
     """
     def __new__(cls, name, bases, attrs):
         model = super(ModelMetaclass, cls).__new__(cls, name, bases, attrs)
@@ -369,7 +370,7 @@ class Model(object):
             return
 
         if pk is not None:
-            kwargs = { cls.primary_key: pk }
+            kwargs = {cls.primary_key: pk}
 
         q = Query(model=cls).where(**kwargs)[:1]
         if q:
@@ -403,9 +404,9 @@ class Model(object):
     def _insert(self):
         """Insert the record.
 
-        If the value of primary key is specified, like `id`, then insert it into
-        database as well. Otherwise, take `lastrowid` as the value of primary
-        key.
+        If the value of primary key is specified, like `id`, then insert it
+        into database as well. Otherwise, take `lastrowid` as the value of
+        primary key.
         """
         fields = self._fields[:]
         used_fields = []
@@ -444,7 +445,8 @@ class Model(object):
 
         Query.execute(db=self.database, query=query, values=values)
 
-        # Update primary key value after the execution of a query as it maybe changed
+        # Update primary key value after the execution of a query as it may be
+        # changed too
         self._pk = getattr(self, self.primary_key)
 
         self.after_update()
