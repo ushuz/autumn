@@ -16,8 +16,9 @@ __author__ = "ushuz"
 
 
 class Query(object):
-    """
-    SQL queries made easy. Designed specifically to work with `Model`.
+    """SQL queries made easy.
+
+    It's designed specifically to work with `Model`.
 
     Create a `Query` instance
 
@@ -223,17 +224,14 @@ class Query(object):
 
 
 def _default_table_name(name):
-    """
-    Translate `MyModel` to `my_model`.
-    """
+    """Translate `MyModel` to `my_model`."""
     return reduce(
         lambda x, y: "_".join((x, y)) if y.isupper() else "".join((x, y)),
         list(name)).lower()
 
 
 class ModelMetaclass(type):
-    """
-    Metaclass for Model.
+    """Metaclass for Model.
 
     Setup meta for the model, like fields, default table name and primary key,
     etc.
@@ -265,7 +263,8 @@ class ModelMetaclass(type):
 
 
 class Model(object):
-    """
+    """Base class for all models.
+
     All models are taken care of, simple and stupid.
 
         class MyModel(Model):
