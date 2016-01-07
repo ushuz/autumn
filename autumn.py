@@ -333,11 +333,11 @@ class Model(object):
 
         # Set attributes by arguments passed in column order
         for i, arg in enumerate(args[:len(self._fields)]):
-            self.__dict__[self._fields[i]] = arg
+            super(Model, self).__setattr__(self._fields[i], arg)
 
         # Set attributes by keyword arguments
         for i in self._fields[len(args):]:
-            self.__dict__[i] = kwargs.get(i)
+            super(Model, self).__setattr__(i, kwargs.get(i))
 
         # Set primary key value
         self._pk_value = getattr(self, self.primary_key, None)
