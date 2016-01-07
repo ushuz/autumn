@@ -1,0 +1,13 @@
+language: python
+
+python:
+  - 2.7
+
+install:
+  - pip install mysqlclient coveralls
+
+script:
+  nosetests --with-coverage --cover-package=autumn -v
+
+after_success:
+  coveralls
