@@ -255,9 +255,9 @@ class ModelMetaclass(type):
         model._fields = tuple([f[0] for f in cursor.description])
         model._field_types = {f: type(attrs.get(f)) for f in model._fields}
 
-        assert hasattr(model, "table_name")
-        assert hasattr(model, "primary_key")
-        assert hasattr(model, "_fields")
+        assert getattr(model, "table_name", None)
+        assert getattr(model, "primary_key", None)
+        assert getattr(model, "_fields", None)
 
         return model
 
