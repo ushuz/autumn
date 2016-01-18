@@ -416,9 +416,9 @@ class Model(object):
                 values.append(v)
 
         query = "INSERT INTO `{}` ({}) VALUES ({})".format(
-                self.table_name,
-                ", ".join(("`{}`".format(f) for f in used_fields)),
-                ", ".join(("%s",) * len(used_fields)))
+            self.table_name,
+            ", ".join(("`{}`".format(f) for f in used_fields)),
+            ", ".join(("%s",) * len(used_fields)))
 
         cursor = Query.execute(db=self.database, query=query, values=values)
 
