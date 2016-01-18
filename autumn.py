@@ -8,8 +8,6 @@ A simple MySQL ORM, provides basic ORM functionalities in a Pythonic way.
 
 from __future__ import print_function
 
-import datetime
-
 
 __version__ = "0.1.0"
 __author__ = "ushuz"
