@@ -3,9 +3,9 @@
 ![Build Status](https://travis-ci.org/ushuz/autumn.svg?branch=master)
 ![Coverage Status](https://coveralls.io/repos/ushuz/autumn/badge.svg?branch=master)
 
-A simple MySQL ORM, provides basic ORM functionalities in a Pythonic way. Coordinating SQL and Python semantics is the primary goal.
+A MySQL ORM providing basic ORM functionalities, in **Pythonic** ways.
 
-The original project and this fork is released under The MIT License.
+The original project and this fork are both released under The MIT License.
 
 ## Install
 
