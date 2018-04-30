@@ -199,14 +199,17 @@ class Query(object):
         self._order_by = "ORDER BY {}".format(order_by)
         return self
 
-    def count(self, what="0"):
+    def count(self, what="0", distinct=False):
         if (what == "0" or what == "*") and self._cache is not None:
             return len(self._cache)
 
         cursor = Query.execute(
             db=self._db,
-            query="SELECT COUNT({}) FROM `{}` {}".format(
-                what, self._model.table_name, self._where_condition),
+            query="SELECT COUNT({}`{}`) FROM `{}` {}".format(
+                "DISTINCT " if distinct else "",
+                what,
+                self._model.table_name,
+                self._where_condition),
             values=self._condition_params)
 
         return cursor.fetchone()[0]
